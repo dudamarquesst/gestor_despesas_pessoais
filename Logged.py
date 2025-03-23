@@ -17,7 +17,7 @@ def display_logged_in_menu():
     print("5 - Gerar relatório de despesas")
 
     option = input("Digite o número da opção desejada: ")
-
+# Apresentar menu de opções para usuário logado
     match option:
         case "0":
             logout()
@@ -33,23 +33,29 @@ def display_logged_in_menu():
             generate_report()
    
 def logout():
+    # Deslogar usuário
     confirm = input("Deseja realmente sair? (S/N)")
     if confirm == "S" or confirm == "s":
         app.set_active_user(None)
 
 def update_monthly_goal():
+    # Alterar meta mensal do usuário
     print("Atualizar Meta Mensal")
     
     while True:
+        # Loop infinito
         print("Meta mensal atual: R${:.2f}".format(app.active_user["meta_mensal"]))
 
         new_goal = float(input("Digite a nova meta de gastos mensal: (0 para sair) R$ "))
+        # Receber do usuário nova meta mensal
         
         if(new_goal == 0):
             return
 
         if(new_goal > 0):
+            # Condição para sair do loop
             break
+            # Acabou o loop
         
         print("Valor inválido, tente novamente.")
             
@@ -59,14 +65,17 @@ def update_monthly_goal():
     print("Meta atualizada com sucesso!")
 
 def add_category():
+# Cadastrar categoria para o usuário atual
     print("Adicionar Categoria")
+    
     category_name = input("Digite o nome da categoria: ")
-
+ # Receber do usuário o nome da categoria
     inserir_categoria(category_name, app.active_user["id"])
-
+    
     print("Categoria adicionada com sucesso!")
-
+  
 def add_expense():
+    # Cadastrar despesas
     print("Cadastrar Despesa")
 
     # Receber descrição da despesa
@@ -124,6 +133,7 @@ def add_expense():
     print("Despesa cadastrada com sucesso!")
 
 def list_expenses():
+    # Listar despesas
     print("Listar Despesas")
 
     user_expenses = get_user_expenses(app.active_user['id'])
@@ -137,6 +147,7 @@ def list_expenses():
         print(f"{expense['data']}: {expense['nome_despesa']} - R${expense['valor']:.2f}")
 
 def generate_report():
+    # Gerar relatório mensal
     print("Gerar relatório de despesas")
 
     # Listar meses com despesas disponíveis para o usuário ativo
